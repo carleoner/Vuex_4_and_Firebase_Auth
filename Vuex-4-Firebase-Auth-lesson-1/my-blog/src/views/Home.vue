@@ -21,7 +21,7 @@
 
 <script>
 import { ref } from "vue";
-import { useStore } from "vuex";
+//import { useStore } from "vuex";
 
 export default {
   setup() {
@@ -31,10 +31,10 @@ export default {
       { title: "Mario vs Luigi, Ultimate Showdown", id: 3 },
     ]);
 
-    const store = useStore();
+    // const store = useStore();
 
-    console.log(store.state.user);
-    store.commit("setUser", "yoshi");
+    // console.log(store.state.user);
+    //store.commit("setUser", "yoshi");
 
     return {
       blogs,
