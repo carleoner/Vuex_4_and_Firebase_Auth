@@ -11,5 +11,5 @@ const store = createStore({
     },
   },
 });
-
+// tutaj zmiana
 export default store;
