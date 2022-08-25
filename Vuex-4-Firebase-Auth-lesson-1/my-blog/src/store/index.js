@@ -2,7 +2,10 @@ import { createStore } from "vuex";
 
 //firebase imports
 import { auth } from "../firebase/config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const store = createStore({
   state: {
@@ -29,7 +32,17 @@ const store = createStore({
       } else {
         throw new Error("could not complete signup");
       }
-      
+    },
+    async login(context, { email, password }) {
+      console.log("login action");
+
+      //async code
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      if (response) {
+        context.commit("setUser", response.user);
+      } else {
+        throw new Error("could not complete login");
+      }
     },
   },
 });
