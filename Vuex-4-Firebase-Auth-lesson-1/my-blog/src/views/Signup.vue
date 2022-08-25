@@ -9,11 +9,13 @@
     <input type="password" name="password" v-model="password" required />
 
     <button>Sign up</button>
+    <div v-if="error">{{ error }}</div>
   </form>
 </template>
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
@@ -22,18 +24,25 @@ export default {
     const password = ref("");
 
     const store = useStore();
+    const router = useRouter();
+    const error = ref(null);
 
-    const handleSubmit = () => {
-      console.log(email.value, password.value);
-      //commit for mutations
-      //dispatch for actions
-      store.dispatch("signup", {
-        email: email.value,
-        password: password.value,
-      });
+    const handleSubmit = async () => {
+      // //commit for mutations
+      // //dispatch for actions
+
+      try {
+        await store.dispatch("signup", {
+          email: email.value,
+          password: password.value,
+        });
+        router.push("/");
+      } catch (err) {
+        error.value = err.message;
+      }
     };
 
-    return { handleSubmit, email, password };
+    return { handleSubmit, email, password, error };
   },
 };
 </script>
